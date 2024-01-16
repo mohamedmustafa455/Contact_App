@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">contacts</string>
+    <string name="num_phone">01070400981</string>
+    <string name="name_contact">Mohamed mustafa</string>
+    <string name="description">Engineering</string>
+    <string name="hint_phone_number">phone number</string>
+    <string name="hint_name">name</string>
+    <string name="hint_additional_information">Additional information</string>
+</resources>
