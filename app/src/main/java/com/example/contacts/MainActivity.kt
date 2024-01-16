@@ -23,8 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         btnAddNewContact=findViewById(R.id.btn_add)
         btnAddNewContact.setOnClickListener {
-            var intent = Intent(this , addNewContactActivity::class.java)
+            var intent = Intent(this , AddNewContactActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
     }
