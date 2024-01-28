@@ -1,5 +1,6 @@
 package com.example.contacts
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,9 +32,6 @@ class AddNewContactActivity : AppCompatActivity() {
         edtPhone=findViewById(R.id.edt_add_phone)
         edtAddittionalInformation=findViewById(R.id.edt_add_describtion)
 
-
-
-
         btnSave.setOnClickListener {
             if( dataIsValid()){
                 save()
@@ -44,9 +42,7 @@ class AddNewContactActivity : AppCompatActivity() {
             val intent= Intent(this , MainActivity::class.java)
             startActivity(intent)
             finish()
-
         }
-
 
     }
     private fun save(){
@@ -56,7 +52,12 @@ class AddNewContactActivity : AppCompatActivity() {
         intent.putExtra("addittionalInformation", description)
         startActivity(intent)
         finish()
+
+        // RESULT_OK is a predefined constant that indicates a successful result
+//        setResult(Activity.RESULT_OK, intent)
+//        finish()
     }
+
     private fun dataIsValid():Boolean {
         if(nameIsValid()&&phoneIsvalid())
             return true
@@ -71,12 +72,23 @@ class AddNewContactActivity : AppCompatActivity() {
         Toast.makeText(this, "name is not valid ", Toast.LENGTH_SHORT).show()
         return false
     }
+
+    //To validate phone and i will add regex validate number
     private fun phoneIsvalid():Boolean{
         readDataFromEditText()
-        if (phone.length == 11)
+        if (isValidPhoneNumber(phone)){//phone.length == 11
             return true
+        }
+
         Toast.makeText(this, "phone is not valid must be 11 number ", Toast.LENGTH_SHORT).show()
         return false
+    }
+
+//This regex matches phone numbers that start with 01 followed by either 0, 1, 2, or 5, and then 8 digits. =>
+//    "^01 [0-2,5]\\d{8}$"
+    fun isValidPhoneNumber(phoneNumber: String): Boolean {
+        val regex = Regex("^\\+(?:[0-9] ?){6,14}[0-9]$") // International phone number regex
+        return regex.matches("+02"+phoneNumber)
     }
 
     //To read the data every time we will validation data instead of live data

@@ -1,5 +1,6 @@
 package com.example.contacts
 
+import android.app.SearchManager.OnCancelListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,14 @@ class AdaptorContacts(var mydata:ArrayList<ContentDM>):RecyclerView.Adapter<Adap
         holder.tvPone.setText(mydata[position].phone)
         holder.tvDescribe.setText(mydata[position].descripe)
 
+        if (listner!=null){
+                    holder.itemView.setOnClickListener{
+            listner?.onClick(mydata[position])
+        }
+        }
+
+
+
     }
 
     override fun getItemCount(): Int {
@@ -29,7 +38,7 @@ class AdaptorContacts(var mydata:ArrayList<ContentDM>):RecyclerView.Adapter<Adap
     }
 
 
-    class ViewHolderContact (val itemView: View):RecyclerView.ViewHolder(itemView){
+    class ViewHolderContact (itemView: View):RecyclerView.ViewHolder(itemView){
         lateinit var tvName:TextView
         lateinit var tvPone:TextView
         lateinit var tvDescribe:TextView
@@ -40,4 +49,9 @@ class AdaptorContacts(var mydata:ArrayList<ContentDM>):RecyclerView.Adapter<Adap
         }
 
     }
+
+    interface onClikItem{
+        fun onClick(contact:ContentDM)
+    }
+    var listner:onClikItem?=null
 }
