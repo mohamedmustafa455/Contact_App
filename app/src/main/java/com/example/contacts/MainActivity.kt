@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setAdaptor ()
-        getModel()
         navigatToAddNewcontact()
         navigatToContactDetails()
 
@@ -32,20 +31,21 @@ class MainActivity : AppCompatActivity() {
         adaptor= AdaptorContacts(itemList )
         rcv_contact.adapter=adaptor
     }
-    fun getModel() {
+    fun getModel(intent:Intent){
        var name= intent.getStringExtra("name").toString()
        var phone = intent.getStringExtra("phone").toString()
        var description=intent.getStringExtra("addittionalInformation").toString()
-
         itemList.add(ContentDM(name, phone,description))
-        Log.e("MainActivity/getModel1", "itemList: $itemList")
+        //new
+        adaptor.notifyItemInserted(itemList.size-1)
+
 
     }
     fun navigatToAddNewcontact(){
         btnAddNewContact=findViewById(R.id.btn_add)
         btnAddNewContact.setOnClickListener {
             var intent = Intent(this , AddNewContactActivity::class.java)
-            startActivity(intent)
+           startActivityForResult(intent,34)
             // REQUEST_CODE is a constant integer that you define
            // startActivityForResult(intent, REQUEST_CODE)
 
@@ -65,6 +65,16 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+//new
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode== RESULT_OK && requestCode == 34){
+            data?.let { getModel(it) }
+
+        }
+    }
+
 
 
 

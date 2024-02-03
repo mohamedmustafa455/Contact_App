@@ -50,10 +50,10 @@ class AddNewContactActivity : AppCompatActivity() {
         intent.putExtra("name", name)
         intent.putExtra("phone", phone)
         intent.putExtra("addittionalInformation", description)
-        startActivity(intent)
+        setResult(RESULT_OK,intent)
         finish()
 
-        // RESULT_OK is a predefined constant that indicates a successful result
+// RESULT_OK is a predefined constant that indicates a successful result
 //        setResult(Activity.RESULT_OK, intent)
 //        finish()
     }

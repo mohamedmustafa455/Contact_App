@@ -13,6 +13,10 @@ class AdaptorContacts(var mydata:ArrayList<ContentDM>):RecyclerView.Adapter<Adap
 
 
 
+    fun inserContact(contact: ContentDM){
+        mydata.add(contact)
+        notifyItemInserted(mydata.size)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderContact {
        var view =LayoutInflater.from(parent.context).inflate(R.layout.item_contact,parent,false)
         return ViewHolderContact(view)
